@@ -1,0 +1,167 @@
+---
+title: "Time Series Lab 1"
+author: "Yubo Rasmussen"
+format: docx
+editor: visual
+---
+
+## Time Series Lab 1
+
+In this computer lab we will use simulation to explore two common models for time series moving average (MA) and autoregressive (AR) processes. By generating simulated time series according to the two models, we can examine the statistical properties, and compare them to theoretical results.
+
+## Key R Commands
+
+To explore these processes we will rely on 3 functions from the R `stats` package. A brief introduction is provided here, but for more information please consult the R Documentation.
+
+1.  To generate data according to MA and AR models, we use the `arima.sim()` function. For our purposes, the function should be called as `arima.sim(model, n)` where model is a list containing the AR and/or MA coeffcients, and `n` is the length of the series to be generated. As a simple example, the following generates a series of length 10 from an AR(2) process:
+
+```{r}
+n <- 10
+ar <- c(0.1, 0.2)
+model <- list(ar = ar)
+generated_series <- arima.sim(model, n)
+```
+
+2.  To estimate the ACF of an observed time series, the function `acf()` should be used. For our purposes this should simply be called as `acf(series, lag.max=k)` where `k` is the maximum lag for which the ACF should be estimated.
+
+3.  Finally, the theoretical ACF of ARMA processes can be computed using the function `ARMAacf()`. `ARMAacf(ar=ar, ma=ma, lag.max=k)` where ar and ma are numeric vectors containing the AR and MA coefficients respectively
+
+## Exercises
+
+1.  Generate a time series of length $n = 500$ from an $MA(p)$ process, where $p = 1$, with coefficient of your choice. Plot the time series, with an appropriate title and axis labels.
+
+    ```{r}
+    # MA(p) process
+
+    # Xt = e_t + phi1 * e_(t-1)
+
+
+    n =  # Length of series
+    p = 
+
+    # Define coefficients
+    phi1 = 
+
+    #Define MA model
+    ma1 = 
+    ma1_model = 
+
+    # Generate series
+    ma1_series = arima.sim(,)
+
+    # Plot series
+    plot(, xlab=, ylab=, main=paste0("Simulated MA(", p ,") process"))
+
+    ```
+
+2.  Calculate an estimate of the ACF for this data, and compare to the theoretical ACF for the model, with maximum lag $k = 30$. Produce a plot to visually compare the estimated and theoretical ACFs
+
+    ```{r}
+    # ACF plots
+    # Estimate acf from series
+    ma1_acf = 
+    # Theoretical acf
+    ma1_tacf =
+
+    par(mfrow=c(2,1))
+
+    plot(, , main = paste0("Estimated ACF of the MA(", p ,") process"))
+    plot(, , , , main = paste0("Theoretical ACF of the MA(", p ,") process"))
+    abline() # Add line at 0 to tacf plot
+
+    ```
+
+3.  Explore different values for the coefficient. How do changes affect the data, and ACF?
+
+    ```{r}
+
+    ```
+
+4.  Repeat for $p = 2$ and $p = 3$, exploring how the behaviour changes as you alter the coefficients.
+
+    ```{r}
+    # MA(2)
+
+    p = 2
+
+    phi1 = 
+    phi2 =  # Observe effect of changing sign of parameters
+
+    ma2 = c(phi1, phi2)
+
+    ma2_model = 
+
+    ma2_series = 
+      
+    plot(ma2_series)
+
+    ma2_acf = 
+    ma2_tacf = 
+
+    par(mfrow=c(2,1))
+
+
+    plot()
+
+    plot()
+    abline(h=0)
+    ```
+
+5.  Repeat the above for an $AR(p)$ process. For $p = 2$, explore the behavior observed in different regions of the stationarity triangle by altering coefficient values.
+
+    ```{r}
+    #AR(1)
+    # X_t = phi1 * X_(t-1) + e_t
+
+
+    p = 
+
+    phi1 =  # -1 < phi1 < 1 for stationarity
+
+
+    ar1 = 
+
+    ar1_model = 
+
+    ar1_series = 
+
+    plot(ar1_series)
+
+    ar1_acf = 
+    ar1_tacf = 
+
+    par(mfrow=c(2,1))
+
+    plot()
+
+    plot()
+
+
+    # AR(2)
+
+    p = 
+
+    phi1 =  # -1 < phi2 < 1,  phi1 + phi2 < 1,   phi2 - phi1 < 1
+    phi2 =  # Observe behaviour in different regions of stationarity triangle
+
+    ar2 = 
+
+    ar2_model = 
+
+    ar2_series = 
+
+    plot()
+
+    ar2_acf = 
+    ar2_tacf = 
+
+    par(mfrow=c(2,1))
+
+    plot()
+
+    plot()
+    abline(h=0)
+
+
+
+    ```
